@@ -34,6 +34,7 @@ public class Tablero {
         this.disposicion = unaDisposicion;
     }
 
+
     @Override
     public String toString() {
         StringBuilder tablero = new StringBuilder();
@@ -43,25 +44,18 @@ public class Tablero {
             if(i == 1){
                 // indicador de número de columna
                 for(short nColumna = 1; nColumna <= dimensiones; nColumna++){
-                    tablero.append(nColumna).append("    ");
+                    if(nColumna == 1){
+                        tablero.append(" ").append(nColumna).append("    ");
+
+                    } else {
+                        tablero.append(nColumna).append("    ");
+                    }
                 }
                 tablero.append("\n");
             }
             separadorHorizontal(tablero);
             if(i != dimensiones){
-                for(short nFila = 1; nFila <= 4; nFila++){
-                    for(short columnas = 1; columnas <= dimensiones + 1; columnas++){
-                        if(nFila == 1 && columnas == 1 && nFila != dimensiones){
-                            tablero.append(i).append("|    ");
-                        }else{
-                            tablero.append(" |   ");
-                        }
-                        if(nFila == dimensiones){
-                            tablero.append("|");
-                        }
-                    }
-                    tablero.append("\n");
-                }
+                posicion(tablero, i);
             }
         }
         return tablero.toString();
@@ -69,13 +63,43 @@ public class Tablero {
 
     private void separadorHorizontal(StringBuilder tablero) {
             for(short h = 1; h <= dimensiones; h++){
-                tablero.append("+----");
+                if(h == 1){
+                    tablero.append(" +----");
+                } else{
+                    tablero.append("+----");
+                }
                 if(h == dimensiones){
                     tablero.append("+");
                 }
         }
         tablero.append("\n");
-
     }
+
+    private void posicion(StringBuilder tablero, short indice) {
+
+        char[] letras = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+
+        for(short nFila = 1; nFila <= 4; nFila++) {
+            for (short columnas = 1; columnas <= dimensiones + 1; columnas++) {
+                if (nFila == 1 && columnas == 1 && nFila != dimensiones) {
+                    if(indice == 5){
+                        tablero.append(letras[indice - 1]).append("| **");
+                    } else {
+                        tablero.append(letras[indice - 1]).append("|   ");
+                    }
+                } else {
+                    if(indice == 2 && columnas == 5){
+                        tablero.append(letras[indice - 1]).append("| **");
+                    } else{
+                        tablero.append(" |   ");
+                    }
+                }
+                if (nFila == dimensiones) {
+                    tablero.append("|");
+                }
+            }
+            tablero.append("\n");
+        }
+}
 
 }
