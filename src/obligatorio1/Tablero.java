@@ -1,39 +1,58 @@
-package AutitosChocadores;
+package obligatorio1;
+
+import java.util.ArrayList;
 
 /**
- * @author Diego Merentiel (239689) - Cinthya del Río ()
+ * @author Diego Merentiel (239689) - Cinthya Del Río (253728)
  */
 
 public class Tablero {
-    private short tipo;
+    
+    private String tipo;
     private short dimensiones;
-    private short[][] disposicion;
-
-    //constructores
-    public Tablero(short unasDimensiones){
-        dimensiones = unasDimensiones;
-    }
-
-    // getters y setters
-    public short getTipo() {
+    private short[][] matriz;
+    private ArrayList<AutitoChocador> autitos;
+    
+    //metodos de acceso y modificacion
+    public String getTipo() {
         return tipo;
     }
-    public void setTipo(short unTipo) {
-        this.tipo = unTipo;
+    public void setTipo(String untipo) {
+        this.tipo = untipo;
     }
+
     public short getDimensiones() {
         return dimensiones;
     }
-    public void setDimensiones(short unasDimensiones) {
-        this.dimensiones = unasDimensiones;
-    }
-    public short[][] getDisposicion() {
-        return disposicion;
-    }
-    public void setDisposicion(short[][] unaDisposicion) {
-        this.disposicion = unaDisposicion;
+    public void setDimensiones(short unaDimension) {
+        this.dimensiones = unaDimension;
     }
 
+    public short[][] getMatriz() {
+        return matriz;
+    }
+    public void setMatriz(short[][] unaMatriz) {
+        this.matriz = unaMatriz;
+    }
+
+    public ArrayList<AutitoChocador> getAutitos() {
+        return autitos;
+    }
+    public void setAutitos(ArrayList<AutitoChocador> autitos) {
+        this.autitos = autitos;
+    }
+    
+    //constructores
+    public Tablero(){
+        this.setTipo("sin definir");
+        this.setDimensiones((short)(0));
+        this.setMatriz(new short[0][0]);
+    }
+    public Tablero(String unTipo, short unaDimension, short[][] unaMatriz){
+        this.setTipo(unTipo);
+        this.setDimensiones(unaDimension);
+        this.setMatriz(unaMatriz);
+    }
 
     @Override
     public String toString() {

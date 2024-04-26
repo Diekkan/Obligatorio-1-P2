@@ -1,18 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-
-import AutitosChocadores.Tablero;
+package obligatorio1;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * @author Diego Merentiel (239689) - Cinthya del Río ()
+ * @author Diego Merentiel (239689) - Cinthya Del Río (253728)
  */
 
-public class Interfaz {
+public class Main {
 
     private static Tablero tableroPersonalizado;
     private static Tablero tablero;
@@ -79,7 +74,8 @@ public class Interfaz {
         System.out.println(coordenadas);
         System.out.println("Dimensiones del tablero?");
         short dimensiones = input.nextShort();
-        tableroPersonalizado = new Tablero(dimensiones);
+        tableroPersonalizado = new Tablero();
+        tableroPersonalizado.setDimensiones(dimensiones);
         System.out.println(tableroPersonalizado);
     }
 
