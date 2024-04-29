@@ -28,7 +28,6 @@ public class AutitoChocador {
     }
     //constructor
     
-    
     @Override
     public String toString (){
         return String.format(("Direccion %s, Color %s, Coordenadas %s"),
