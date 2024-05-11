@@ -48,16 +48,47 @@ public class Tablero {
         this.setDimensiones((short)(0));
         this.setMatriz(new short[0][0]);
     }
-    public Tablero(String unTipo, short unaDimension, short[][] unaMatriz){
+
+    public Tablero(String unTipo, short unaDimension, ArrayList<AutitoChocador>unosAutitos){
         this.setTipo(unTipo);
         this.setDimensiones(unaDimension);
-        this.setMatriz(unaMatriz);
+        this.setAutitos(unosAutitos);
+        this.setMatriz(new short[unaDimension][unaDimension]);
+        this.refrescarEstado();
+        this.imprimirMatriz(this.getMatriz());
+    }
+
+    public void imprimirMatriz(short[][] matriz) {
+        // Itera a través de cada fila
+        for (int i = 0; i < matriz.length; i++) {
+            // Itera a través de cada columna en la fila actual
+            for (int j = 0; j < matriz[i].length; j++) {
+                // Imprime el elemento en la posición actual
+                System.out.print(matriz[i][j] + " ");
+            }
+            // Imprime un salto de línea después de cada fila
+            System.out.println();
+        }
+    }
+
+    //métodos
+
+    public void refrescarEstado(){
+        // indicamos donde se encuentra cada auto en la matriz.
+        short[][] matrizAEditar = this.getMatriz();
+
+        for(AutitoChocador autito: this.getAutitos()){
+            System.out.println(autito.getFila());
+            System.out.println(autito.getColumna());
+
+            matrizAEditar[autito.getFila()][autito.getColumna()] = autito.getId();
+        }
     }
 
     @Override
     public String toString() {
         StringBuilder tablero = new StringBuilder();
-        short separadorHorizontal = 2;
+        short fila = 0;
 
         for(short i = 1; i <= dimensiones; i++) {
             if(i == 1){
@@ -72,15 +103,17 @@ public class Tablero {
                 }
                 tablero.append("\n");
             }
-            separadorHorizontal(tablero);
+            dibujarSeparadorHorizontal(tablero);
             if(i != dimensiones){
-                posicion(tablero, i);
+                dibujarCasilleros(tablero, fila);
+                fila++;
             }
         }
         return tablero.toString();
     }
 
-    private void separadorHorizontal(StringBuilder tablero) {
+
+    private void dibujarSeparadorHorizontal(StringBuilder tablero) {
             for(short h = 1; h <= dimensiones; h++){
                 if(h == 1){
                     tablero.append(" +----");
@@ -94,31 +127,45 @@ public class Tablero {
         tablero.append("\n");
     }
 
-    private void posicion(StringBuilder tablero, short indice) {
 
-        char[] letras = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+    private void dibujarCasilleros(StringBuilder tablero, short fila) {
 
-        for(short nFila = 1; nFila <= 4; nFila++) {
-            for (short columnas = 1; columnas <= dimensiones + 1; columnas++) {
-                if (nFila == 1 && columnas == 1 && nFila != dimensiones) {
-                    if(indice == 5){
-                        tablero.append(letras[indice - 1]).append("| **");
+        for(short imprimiendoFila = 1; imprimiendoFila <= 4; imprimiendoFila++) {
+            for (short columnas = 1; columnas <= this.getDimensiones() + 1; columnas++) {
+                // la primera fila imprime su respectiva letra:
+                if (imprimiendoFila == 1 && columnas == 1 && imprimiendoFila != this.getDimensiones()) {
+                    // si la matriz tiene un autito en la posición que se está imprimiendo
+                    if(this.getMatriz()[fila][columnas] != 0){
+                        // chequeamos la dirección de dicho autito
+                        short autitoId = this.getMatriz()[fila][columnas];
+                        short direccion = hallarDireccion(autitoId);
+                        tablero.append((char)('A' + fila - 1)).append("| **");
                     } else {
-                        tablero.append(letras[indice - 1]).append("|   ");
+                        tablero.append((char)('A' + fila )).append("|   ");
                     }
                 } else {
-                    if(indice == 2 && columnas == 5){
-                        tablero.append(letras[indice - 1]).append("| **");
+                    if(imprimiendoFila == 1 && columnas == 1 && imprimiendoFila != this.getDimensiones()){
+                        tablero.append((char)('A' + fila - 1)).append("|   ");
                     } else{
                         tablero.append(" |   ");
                     }
                 }
-                if (nFila == dimensiones) {
+                if (imprimiendoFila == dimensiones) {
                     tablero.append("|");
                 }
             }
             tablero.append("\n");
         }
-}
+    }
+
+
+    private short hallarDireccion(short autitoId){
+        for(AutitoChocador autito: this.getAutitos()){
+            if(autito.getId() == autitoId){
+                return autito.getDireccion();
+            }
+        }
+        return -1;
+    }
 
 }
