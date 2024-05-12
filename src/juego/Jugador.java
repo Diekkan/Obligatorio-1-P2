@@ -1,4 +1,4 @@
-package obligatorio1;
+package juego;
 
 public class Jugador {
     //variables de instancia
@@ -71,6 +71,20 @@ public class Jugador {
     //constructor sin parametros
     
     //constructor con parametros
-    
+
+    public Jugador(String unNombre, short unaEdad, String unAlias){
+        this.setNombre(unNombre);
+        this.setEdad(unaEdad);
+        this.setAlias(unAlias);
+        this.setPuntaje(0);
+        this.setGanadas(0);
+        this.setPerdidas(0);
+        this.setAbandonadas(0);
+    }
+
     //toString ???
+    @Override
+    public String toString(){
+        return String.format(("%s - %s"), this.getNombre(), this.getAlias());
+    }
 }

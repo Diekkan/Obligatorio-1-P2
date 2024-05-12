@@ -1,4 +1,4 @@
-package obligatorio1;
+package juego;
 
 public class AutitoChocador {
     private short id;
@@ -47,21 +47,23 @@ public class AutitoChocador {
     }
     //constructor
 
-    public AutitoChocador(short unId, String coordenadas){
+    public AutitoChocador(short unId, String unasCoordenadas){
         // le ponemos un identificador para diferenciarlo en la matriz.
         this.setId(unId);
         // ajustamos los valores de las coordenadas dadas para que sean más fáciles de manejar
+        String coordenadas = unasCoordenadas.toUpperCase();
         this.setFila((short)(coordenadas.charAt(0) - 'A'));
-        this.setColumna((short)(coordenadas.charAt(1) - '0'));
+        this.setColumna((short)(coordenadas.charAt(1) - '0' - 1));
         this.setDireccion((short)(coordenadas.charAt(2) - '0' - 1));
     }
 
 
     @Override
     public String toString (){
-        return String.format(("Direccion %s, Color %s"),
+        return String.format(("Direccion %s - F:%s/C:%s"),
             this.getDireccion(),
-            this.getColor()
+            this.getFila(),
+            this.getColumna()
         );
     }
 }

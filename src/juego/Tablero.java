@@ -1,4 +1,4 @@
-package obligatorio1;
+package juego;
 
 import java.util.ArrayList;
 
@@ -78,9 +78,6 @@ public class Tablero {
         short[][] matrizAEditar = this.getMatriz();
 
         for(AutitoChocador autito: this.getAutitos()){
-            System.out.println(autito.getFila());
-            System.out.println(autito.getColumna());
-
             matrizAEditar[autito.getFila()][autito.getColumna()] = autito.getId();
         }
     }
@@ -90,8 +87,8 @@ public class Tablero {
         StringBuilder tablero = new StringBuilder();
         short fila = 0;
 
-        for(short i = 1; i <= dimensiones; i++) {
-            if(i == 1){
+        for(short i = 0; i <= dimensiones; i++) {
+            if(i == 0){
                 // indicador de número de columna
                 for(short nColumna = 1; nColumna <= dimensiones; nColumna++){
                     if(nColumna == 1){
@@ -135,20 +132,14 @@ public class Tablero {
                 // la primera fila imprime su respectiva letra:
                 if (imprimiendoFila == 1 && columnas == 1 && imprimiendoFila != this.getDimensiones()) {
                     // si la matriz tiene un autito en la posición que se está imprimiendo
+                    tablero.append((char)('A' + fila));
+                    System.out.println(this.getMatriz()[fila][columnas]);
                     if(this.getMatriz()[fila][columnas] != 0){
-                        // chequeamos la dirección de dicho autito
-                        short autitoId = this.getMatriz()[fila][columnas];
-                        short direccion = hallarDireccion(autitoId);
-                        tablero.append((char)('A' + fila - 1)).append("| **");
                     } else {
-                        tablero.append((char)('A' + fila )).append("|   ");
+                        tablero.append("|   ");
                     }
                 } else {
-                    if(imprimiendoFila == 1 && columnas == 1 && imprimiendoFila != this.getDimensiones()){
-                        tablero.append((char)('A' + fila - 1)).append("|   ");
-                    } else{
                         tablero.append(" |   ");
-                    }
                 }
                 if (imprimiendoFila == dimensiones) {
                     tablero.append("|");
@@ -157,7 +148,6 @@ public class Tablero {
             tablero.append("\n");
         }
     }
-
 
     private short hallarDireccion(short autitoId){
         for(AutitoChocador autito: this.getAutitos()){
