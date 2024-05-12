@@ -54,7 +54,7 @@ public class AutitoChocador {
         String coordenadas = unasCoordenadas.toUpperCase();
         this.setFila((short)(coordenadas.charAt(0) - 'A'));
         this.setColumna((short)(coordenadas.charAt(1) - '0' - 1));
-        this.setDireccion((short)(coordenadas.charAt(2) - '0' - 1));
+        this.setDireccion((short)(coordenadas.charAt(2) - '0'));
     }
 
 

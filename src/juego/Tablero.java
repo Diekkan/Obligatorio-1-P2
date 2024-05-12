@@ -80,6 +80,8 @@ public class Tablero {
         for(AutitoChocador autito: this.getAutitos()){
             matrizAEditar[autito.getFila()][autito.getColumna()] = autito.getId();
         }
+
+        this.setMatriz(matrizAEditar);
     }
 
     @Override
@@ -87,15 +89,14 @@ public class Tablero {
         StringBuilder tablero = new StringBuilder();
         short fila = 0;
 
-        for(short i = 0; i <= dimensiones; i++) {
+        for(short i = 0; i < dimensiones; i++) {
             if(i == 0){
                 // indicador de número de columna
-                for(short nColumna = 1; nColumna <= dimensiones; nColumna++){
-                    if(nColumna == 1){
-                        tablero.append(" ").append(nColumna).append("    ");
-
+                for(short nColumna = 0; nColumna < dimensiones; nColumna++){
+                    if(nColumna == 0){
+                        tablero.append(" ").append(nColumna + 1).append("    ");
                     } else {
-                        tablero.append(nColumna).append("    ");
+                        tablero.append(nColumna + 1).append("    ");
                     }
                 }
                 tablero.append("\n");
@@ -106,6 +107,8 @@ public class Tablero {
                 fila++;
             }
         }
+        dibujarSeparadorHorizontal(tablero);
+
         return tablero.toString();
     }
 
@@ -124,28 +127,51 @@ public class Tablero {
         tablero.append("\n");
     }
 
-
     private void dibujarCasilleros(StringBuilder tablero, short fila) {
 
         for(short imprimiendoFila = 1; imprimiendoFila <= 4; imprimiendoFila++) {
-            for (short columnas = 1; columnas <= this.getDimensiones() + 1; columnas++) {
+            for (short columnas = 0; columnas < this.getDimensiones(); columnas++) {
                 // la primera fila imprime su respectiva letra:
-                if (imprimiendoFila == 1 && columnas == 1 && imprimiendoFila != this.getDimensiones()) {
+                if (imprimiendoFila == 1 && columnas == 0 && imprimiendoFila != this.getDimensiones()) {
                     // si la matriz tiene un autito en la posición que se está imprimiendo
                     tablero.append((char)('A' + fila));
                     System.out.println(this.getMatriz()[fila][columnas]);
-                    if(this.getMatriz()[fila][columnas] != 0){
-                    } else {
-                        tablero.append("|   ");
-                    }
-                } else {
-                        tablero.append(" |   ");
-                }
-                if (imprimiendoFila == dimensiones) {
                     tablero.append("|");
+                    dibujarAutito(tablero, fila, imprimiendoFila, columnas);
+                } else {
+
+                    tablero.append(" |");
+                    dibujarAutito(tablero, fila, imprimiendoFila, columnas);
+
                 }
+
             }
-            tablero.append("\n");
+            tablero.append(" |\n");
+        }
+    }
+
+    private void dibujarAutito(StringBuilder tablero, short fila, short imprimiendoFila, short columnas){
+
+        if(this.getMatriz()[fila][columnas] != 0){
+            short direccion = hallarDireccion(this.getMatriz()[fila][columnas]);
+            switch(direccion){
+                case 0:
+                    if(imprimiendoFila == 1){
+                        tablero.append(" oo");
+                    }
+                    else if(imprimiendoFila != 1){
+                        tablero.append(" **");
+                    }
+                case 2:
+                    if(imprimiendoFila == 4){
+                        tablero.append(" oo");
+                    }
+                    else if(imprimiendoFila != 4){
+                        tablero.append(" **");
+                    }
+            }
+        } else {
+            tablero.append("   ");
         }
     }
 
