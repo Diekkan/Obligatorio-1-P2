@@ -73,6 +73,18 @@ public class Tablero {
 
     //métodos
 
+    public void chequearJugadas(){
+        short[][] matriz = this.getMatriz();
+
+        for (short i = 0; i < matriz.length; i++) {
+            for(short j = 0; j < matriz.length; j++){
+                if(matriz[i][j] != 0){
+
+                }
+            }
+        }
+    }
+
     public void refrescarEstado(){
         // indicamos donde se encuentra cada auto en la matriz.
         short[][] matrizAEditar = this.getMatriz();
@@ -111,7 +123,6 @@ public class Tablero {
 
         return tablero.toString();
     }
-
 
     private void dibujarSeparadorHorizontal(StringBuilder tablero) {
             for(short h = 1; h <= dimensiones; h++){
@@ -154,21 +165,43 @@ public class Tablero {
 
         if(this.getMatriz()[fila][columnas] != 0){
             short direccion = hallarDireccion(this.getMatriz()[fila][columnas]);
-            switch(direccion){
-                case 0:
-                    if(imprimiendoFila == 1){
-                        tablero.append(" oo");
-                    }
-                    else if(imprimiendoFila != 1){
-                        tablero.append(" **");
-                    }
-                case 2:
-                    if(imprimiendoFila == 4){
-                        tablero.append(" oo");
-                    }
-                    else if(imprimiendoFila != 4){
-                        tablero.append(" **");
-                    }
+            if(direccion == 0){
+                if(imprimiendoFila == 1){
+                    tablero.append(" oo");
+                }
+                else if(imprimiendoFila != 1){
+                    tablero.append(" **");
+                }
+            }
+            else if(direccion == 1){
+                if(imprimiendoFila == 2){
+                    tablero.append(" **o");
+                }
+                else if(imprimiendoFila == 3){
+                    tablero.append(" **o");
+                }
+                else{
+                    tablero.append("    ");
+                }
+            }
+            else if(direccion == 2){
+                if(imprimiendoFila == 4){
+                    tablero.append(" oo");
+                }
+                else if(imprimiendoFila != 4){
+                    tablero.append(" **");
+                }
+            }
+            else if(direccion == 3){
+                if(imprimiendoFila == 2){
+                    tablero.append(" o**");
+                }
+                else if(imprimiendoFila == 3){
+                    tablero.append(" o**");
+                }
+                else{
+                    tablero.append("   ");
+                }
             }
         } else {
             tablero.append("   ");

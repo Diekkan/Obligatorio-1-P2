@@ -161,6 +161,21 @@ public class Main {
         }
         else if(tipo == 2){
 
+            ArrayList<AutitoChocador> autitos = new ArrayList<>();
+            short id = 1;
+
+            autitos.add(new AutitoChocador(id++, "A12"));
+            autitos.add(new AutitoChocador(id++, "A21"));
+            autitos.add(new AutitoChocador(id++, "A42"));
+            autitos.add(new AutitoChocador(id++, "A50"));
+            autitos.add(new AutitoChocador(id++, "D52"));
+            autitos.add(new AutitoChocador(id++, "E10"));
+            autitos.add(new AutitoChocador(id++, "E41"));
+            autitos.add(new AutitoChocador(id++, "E53"));
+
+            tableroPersonalizado = new Tablero("", (short)(5), autitos);
+            System.out.println(tableroPersonalizado);
+
         }
     }
 
@@ -207,6 +222,32 @@ public class Main {
             default:
                 System.out.println("Elije una opción correcta");
         }
+
+        boolean juego = true;
+        while(juego){
+            System.out.flush();
+            System.out.println(tableroPersonalizado);
+            System.out.println("--Juego--");
+            System.out.println("Inserta coordenadas del autito a jugar");
+            System.out.println("S. Muestra una lista de los autos que pueden ser seleccionados");
+            System.out.println("X. Abandonar partida");
+            System.out.println("R. Rota el tablero 90º en sentido horario.");
+
+            String jugada = input.nextLine();
+
+            switch(jugada){
+                case "S":
+                    System.out.println("Lista:");
+                case "X":
+                    juego = false;
+            }
+
+        }
+
+    }
+
+    private static void promptJuego(){
+        System.out.println("");
     }
 
     public static void ranking() {
